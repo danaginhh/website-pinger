@@ -1,12 +1,12 @@
-name: Test Cron Schedule
+name: Test Schedule Every Minute
 
 on:
   schedule:
-    - cron: '* * * * *'  # every 5 minutes
-  workflow_dispatch:
+    - cron: '* * * * *'
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Schedule detected"
+      - name: Run test
+        run: echo "This runs every minute!"

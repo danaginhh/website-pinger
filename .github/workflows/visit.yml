@@ -2,33 +2,29 @@ name: Visit Website Every Minute
 
 on:
   schedule:
-    - cron: "* * * * *"
+    - cron: '* * * * *'
   workflow_dispatch:
 
 jobs:
   visit:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Playwright
-        run: |
+      - run: |
           npm init -y
           npm install playwright
           npx playwright install --with-deps
 
-      - name: Visit Website
-        run: |
+      - run: |
           node -e "
           const { chromium } = require('playwright');
           (async () => {
             const browser = await chromium.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=1&Action=RunOnSecondaryServer', { waitUntil: 'networkidle' });
-            console.log('Website visited successfully');
+            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=1&Action=RunOnSecondaryServer');
             await browser.close();
           })();
           "

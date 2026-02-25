@@ -1,30 +1,35 @@
-name: Visit Website Every Minute
+name: Visit Website Every 5 Minutes
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/5 * * * *'  # runs every 5 minutes
   workflow_dispatch:
 
 jobs:
   visit:
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Install Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # Step 2: Install Playwright
       - run: |
           npm init -y
           npm install playwright
           npx playwright install --with-deps
 
+      # Step 3: Visit your website
       - run: |
           node -e "
           const { chromium } = require('playwright');
           (async () => {
             const browser = await chromium.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=1&Action=RunOnSecondaryServer');
+            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=1&Action=RunOnSecondaryServer', { waitUntil: 'networkidle' });
+            console.log('Website visited successfully');
             await browser.close();
           })();
           "

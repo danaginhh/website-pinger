@@ -24,7 +24,7 @@ jobs:
           (async () => {
             const browser = await chromium.launch({ headless: true });
             const page = await browser.newPage();
-            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=1&Action=RunOnSecondaryServer');
+            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=79&Action=RunOnSecondaryServer');
             await browser.close();
           })();
           "

@@ -1,12 +1,30 @@
-name: Test Schedule Every Minute
+name: Visit Website Every Minute
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/2 * * * *'
+  workflow_dispatch:
 
 jobs:
-  test:
+  visit:
     runs-on: ubuntu-latest
     steps:
-      - name: Run test
-        run: echo "This runs every minute!"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps
+
+      - run: |
+          node -e "
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage();
+            await page.goto('https://bibi3.byethost13.com/ValidateEmails.php?Amount=78&Action=RunOnSecondaryServer');
+            await browser.close();
+          })();
+          "

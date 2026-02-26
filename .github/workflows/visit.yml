@@ -30,7 +30,7 @@ jobs:
               { waitUntil: 'commit' }   // don't wait for full load
             );
 
-            await page.waitForTimeout(3000); // wait 3 seconds only
+            await page.waitForTimeout(2000); // wait 3 seconds only
 
             await browser.close();
           })();

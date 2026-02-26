@@ -1,4 +1,4 @@
-name: Run Playwright Every Minute 1
+name: Run Playwright Every Minute 2
 
 on:
   schedule:

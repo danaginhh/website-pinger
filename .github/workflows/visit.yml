@@ -2,7 +2,7 @@ name: Run Playwright Every Minute
 
 on:
   schedule:
-    - cron: "*/3 * * * *"   # every minute (UTC)
+    - cron: "*/5 * * * *"   # every minute (UTC)
   workflow_dispatch:
 
 jobs:
